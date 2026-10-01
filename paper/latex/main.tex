@@ -1,0 +1,133 @@
+\documentclass[10pt,a4paper]{article}
+
+% ============ Пакеты ============
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage[margin=2.3cm]{geometry}   % поля симметричны: left=right=2.3cm
+\usepackage{fontspec}
+\usepackage[russian]{babel}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{enumitem}
+\usepackage{needspace}
+% hyperref -- последний среди контентных пакетов
+\usepackage[
+  colorlinks=true,
+  linkcolor=linkblue,
+  citecolor=darkgray,
+  urlcolor=linkblue,
+  bookmarks=true,
+  bookmarksnumbered=true,
+  unicode=true
+]{hyperref}
+
+% ============ Шрифты (кириллица, Times-метрика) ============
+\setmainfont{Liberation Serif}
+\setsansfont{Liberation Sans}
+
+% ============ Цвета ============
+\definecolor{linkblue}{RGB}{28,58,122}
+\definecolor{darkgray}{RGB}{70,70,70}
+
+% ============ Теоремные окружения ============
+\theoremstyle{plain}
+\newtheorem{theorem}{Теорема}[section]
+\newtheorem{lemma}[theorem]{Лемма}
+\newtheorem{proposition}[theorem]{Предложение}
+\newtheorem{corollary}[theorem]{Следствие}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Определение}
+\newtheorem{example}[theorem]{Пример}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Замечание}
+\renewcommand{\proofname}{Доказательство}
+
+% ============ Макросы ============
+\newcommand{\Om}{\boldsymbol{\Omega}}
+\newcommand{\om}{\boldsymbol{\omega}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\so}{\mathfrak{so}(3)}
+\newcommand{\RP}{\mathbb{RP}}
+\newcommand{\bbI}{\mathbf{I}}
+\newcommand{\bbL}{\mathbf{L}}
+\newcommand{\bbP}{\mathbf{P}}
+\newcommand{\bu}{\mathbf{u}}
+\newcommand{\bvn}{\mathbf{v}}
+\newcommand{\bwn}{\boldsymbol{\omega}}
+\newcommand{\bx}{\mathbf{x}}
+\newcommand{\bn}{\mathbf{n}}
+\DeclareMathOperator{\spec}{spec}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\adst}{ad^{*}}
+\DeclareMathOperator{\diag}{diag}
+
+% ============ Типографика ============
+\widowpenalty=10000
+\clubpenalty=10000
+\tolerance=2500
+\hbadness=3000
+\setlength{\emergencystretch}{3em}
+\numberwithin{equation}{section}
+
+% ============ Метаданные ============
+\hypersetup{
+  pdftitle={Математическая модель P^3 -> so(3) для Навье--Стокса: строгое изложение, расширения и численная верификация},
+  pdfauthor={POLER Research Notes},
+  pdfsubject={Геометрическая редукция динамики завихренности на алгебру Ли so(3)},
+  pdfkeywords={Навье--Стокс, so(3), Эйлер--Пуанкаре, Ли--Пуассон, Казимир, Хопф--Коул, МакВини, регулярность}
+}
+
+\begin{document}
+
+% Титульная страница отсутствует в .tex: обложка генерируется отдельно (HTML/Playwright)
+% и подклеивается как страница 0. Первая страница тела -- оглавление.
+\tableofcontents
+\newpage
+
+\input{s1}
+\input{s2}
+\input{s3}
+\input{s4}
+\input{s5}
+\input{s6}
+\input{s7}
+\input{s8}
+
+% ============ Литература ============
+\begin{thebibliography}{15}
+\small
+\raggedright
+
+\bibitem{arnold} В.~И.~Арнольд. \emph{Математические методы классической механики}. М.: Наука, 1974.
+
+\bibitem{arnoldkhesin} V.~I.~Arnold, B.~A.~Khesin. \emph{Topological Methods in Hydrodynamics}. Applied Mathematical Sciences 125, Springer, 1998.
+
+\bibitem{marsdenratiu} J.~E.~Marsden, T.~S.~Ratiu. \emph{Introduction to Mechanics and Symmetry}. 2nd ed., Texts in Applied Mathematics 17, Springer, 1999.
+
+\bibitem{hmr} D.~D.~Holm, J.~E.~Marsden, T.~S.~Ratiu. The Euler--Poincar\'e equations and semidirect products. \emph{Advances in Mathematics} 117 (1996), 98--138.
+
+\bibitem{ladyzh} О.~А.~Ладыженская. \emph{Математическая теория вязкой несжимаемой жидкости}. М.: Наука, 1970.
+
+\bibitem{hopf} E.~Hopf. The partial differential equation $u_t+uu_x=\mu u_{xx}$. \emph{Communications on Pure and Applied Mathematics} 3 (1950), 201--230.
+
+\bibitem{cole} J.~D.~Cole. On a quasi-linear parabolic equation occurring in aerodynamics. \emph{Quarterly of Applied Mathematics} 9 (1951), 225--236.
+
+\bibitem{mcweeny} R.~McWeeny. Some recent advances in density matrix theory. \emph{Reviews of Modern Physics} 32 (1960), 335--373.
+
+\bibitem{bkm} J.~T.~Beale, T.~Kato, A.~Majda. Remarks on the breakdown of smooth solutions for the 3-D Euler equations. \emph{Communications in Mathematical Physics} 94 (1984), 61--66.
+
+\bibitem{ckn} L.~Caffarelli, R.~Kohn, L.~Nirenberg. Partial regularity of suitable weak solutions of the Navier--Stokes equations. \emph{Communications on Pure and Applied Mathematics} 35 (1982), 771--831.
+
+\bibitem{fefferman} C.~L.~Fefferman. Existence and smoothness of the Navier--Stokes equation. В кн.: \emph{The Millennium Prize Problems}, AMS, 2006, 57--67.
+
+\bibitem{lasalle} J.~P.~LaSalle. \emph{The Stability of Dynamical Systems}. CBMS-NSF Regional Conference Series 25, SIAM, 1976.
+
+\bibitem{hartman} P.~Hartman. \emph{Ordinary Differential Equations}. 2nd ed., Birkh\"auser, 1982.
+
+\bibitem{euler} L.~Euler. Du mouvement de rotation des corps solides autour d'un axe variable. \emph{M\'emoires de l'Acad\'emie des Sciences de Berlin} 14 (1758), 154--193.
+
+\end{thebibliography}
+
+\end{document}

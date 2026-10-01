@@ -1,0 +1,214 @@
+\needspace{0.25\textheight}
+\section{Инварианты: Казимир, гамильтониан, затухание}\label{sec:inv}
+
+\subsection{Точные законы эволюции}
+
+\begin{theorem}[Казимир]\label{th:casimir}
+Вдоль решений \eqref{eq:epd} при \textup{(H1)}
+\begin{equation}\label{eq:casimir}
+  \frac{d}{dt}\|\Om\|^2
+  = 2\,\bigl\langle \Om,\; \Om\times\bbI^{-1}\Om\bigr\rangle
+    - 2\nu\,\langle\Om,\bbL\Om\rangle
+  = -2\nu\,\langle\Om,\bbL\Om\rangle \;\le\; 0 .
+\end{equation}
+При $\nu = 0$ величина $\|\Om(t)\|^2 \equiv \|\Om_0\|^2$ тождественно:
+траектория заперта на сфере $S^2_{\|\Om_0\|} \subset \so^{*}$.
+\end{theorem}
+
+\begin{proof}
+Первое равенство~--- дифференцирование квадрата нормы и подстановка
+\eqref{eq:epd}. Обращение в нуль перекрёстного члена~--- определитель
+с двумя равными столбцами:
+$\langle\Om, \Om\times\om\rangle = \det[\Om,\Om,\om] = 0$
+при любых $\om$. Знак~--- положительная полуопределённость $\bbL$
+из \textup{(H1)}: $\langle\Om,\bbL\Om\rangle \ge 0$.
+\end{proof}
+
+\begin{theorem}[гамильтониан]\label{th:ham}
+Вдоль решений \eqref{eq:epd}
+\begin{equation}\label{eq:ham}
+  \frac{d\mathcal H}{dt}
+  = \bigl\langle \nabla\mathcal H,\dot\Om\bigr\rangle
+  = \underbrace{\bigl\langle \bbI^{-1}\Om,\;\Om\times\bbI^{-1}\Om\bigr\rangle}_{=0}
+  - \nu\,\bigl\langle \bbI^{-1}\Om,\;\bbL\Om\bigr\rangle
+  = -\nu\,\Om^{\mathsf T}\bbI^{-1}\bbL\,\Om .
+\end{equation}
+Если дополнительно выполнена \textup{(H2)}, то
+\begin{equation}\label{eq:ham-diag}
+  \frac{d\mathcal H}{dt} = -\nu\sum_{k=1}^{3}\frac{L_{kk}}{I_k}\,\Omega_k^2 \;\le\; 0 ,
+\end{equation}
+и $\mathcal H$~--- функция Ляпунова строгого сертификата устойчивости.
+\end{theorem}
+
+\begin{proof}
+Равенство \eqref{eq:ham}~--- правило цепочки с
+$\nabla\mathcal H = \bbI^{-1}\Om$ и обнуление перекрёстного члена как в
+теореме~\ref{th:casimir}. При \textup{(H2)} операторы $\bbI^{-1}$ и $\bbL$
+диагональны в одном базисе, произведение $\bbI^{-1}\bbL$ симметрично и
+положительно полуопределено, откуда \eqref{eq:ham-diag}.
+\end{proof}
+
+\begin{remark}[коммутационная тонкость]\label{rem:commutator}
+Гипотеза \textup{(H2)} в теореме~\ref{th:ham} существенна и не сводится
+к \textup{(H1)}: без неё квадратичная форма
+$\Om \mapsto \Om^{\mathsf T}\bbI^{-1}\bbL\Om$ определяется
+симметризацией $\tfrac12(\bbI^{-1}\bbL + \bbL\bbI^{-1})$, которая может
+быть неопределённой даже при $\bbL \succ 0$. Пример:
+\[
+  \bbI^{-1} = \diag(10,1,1),\qquad
+  \bbL = \begin{pmatrix} 1 & 1 & 0\\ 1 & 1{,}5 & 0\\ 0 & 0 & 1 \end{pmatrix},
+  \qquad \spec \bbL = \{0{,}219;\;1;\;2{,}281\} \subset (0,\infty),
+\]
+\[
+  \operatorname{sym}(\bbI^{-1}\bbL) = \begin{pmatrix} 10 & 5{,}5 & 0\\ 5{,}5 & 1{,}5 & 0\\ 0 & 0 & 1 \end{pmatrix},
+  \qquad \det\begin{pmatrix} 10 & 5{,}5\\ 5{,}5 & 1{,}5 \end{pmatrix} = -15{,}25 < 0 .
+\]
+В точке $\Om_0 = (-0{,}5;\,1;\,0)$ имеем
+$\Om_0^{\mathsf T}\bbI^{-1}\bbL\Om_0 = -1{,}5$, т.е.
+$\dot{\mathcal H}(0) = +1{,}5\,\nu > 0$: \emph{гамильтониан возрастает,
+тогда как Казимир по-прежнему строго убывает} (теорема~\ref{th:casimir}
+не требует \textup{(H2)}). Численная иллюстрация~--- проверка E1 в
+\S\ref{sec:numerics}: за $t \le 4$ рост $\mathcal H$ на $1{,}02\%$ при
+строго убывающем $\|\Om\|^2$. Таким образом, «сертификат Ляпунова»
+гарантирован только при \textup{(H2)}; энергетическая монотонность~---
+свойство диагонализации, а не диссипации самой по себе.
+\end{remark}
+
+\subsection{Скорость затухания и предельное множество}
+
+\begin{corollary}[экспоненциальное затухание]\label{cor:decay}
+Если $\lambda_{\min} := \lambda_{\min}(\bbL) > 0$, то
+\begin{equation}\label{eq:decay}
+  \|\Om(t)\|^2 \le \|\Om_0\|^2\,e^{-2\nu\lambda_{\min} t},
+  \qquad t \ge 0 .
+\end{equation}
+\end{corollary}
+
+\begin{proof}
+Из \eqref{eq:casimir} и неравенства Рэлея
+$\langle\Om,\bbL\Om\rangle \ge \lambda_{\min}\|\Om\|^2$:
+$\dot C \le -2\nu\lambda_{\min}C$ для $C = \|\Om\|^2$. Тогда
+$\varphi(t) := C(t)e^{2\nu\lambda_{\min}t}$ удовлетворяет
+$\dot\varphi = e^{2\nu\lambda_{\min}t}\bigl(\dot C + 2\nu\lambda_{\min}C\bigr)
+\le 0$, т.е. $\varphi$ невозрастает и $\varphi(t) \le \varphi(0)$.
+\end{proof}
+
+\begin{theorem}[Ла--Салль]\label{th:lasalle}
+Пусть $\omega$-предельное множество траектории \eqref{eq:epd}
+непусто и компактно (это так при $\nu > 0$). Тогда оно содержится в
+наибольшем инвариантном подмножестве множества
+$M_0 = \{\Om : \langle\Om,\bbL\Om\rangle = 0\} = \ker\bbL$. В частности:
+\begin{enumerate}[label=\textup{(\alph*)}, leftmargin=2.2em, itemsep=1pt]
+  \item при $\bbL \succ 0$: $\Om(t) \to 0$ при $t\to+\infty$ для любого
+        начального условия;
+  \item при $\nu > 0$, диагональных $\bbL$, $\bbI$ и одномерном
+        $\ker\bbL = \operatorname{span}\{e_k\}$: $\Om(t)$ сходится к
+        точке равновесия $a\,e_k$, $a \in \R$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+По теореме~\ref{th:casimir} $C = \|\Om\|^2$ невозрастает и ограничена
+снизу, значит существует $C_\infty = \lim C(t)$. На $\omega$-предельном
+множестве $C \equiv C_\infty$ и $\dot C = 0$; по принципу
+Ла--Салля \cite{lasalle} $\omega$-предельное множество инвариантно и
+лежит в $M_0 = \ker\bbL$. (a): $\ker\bbL = \{0\}$, и единственная
+инвариантная точка в $\{0\}$~--- само $0$ (равновесие). (b): орбита,
+целиком лежащая в $\operatorname{span}\{e_k\}$, имеет вид
+$\Om(t) = a(t)e_k$; подстановка в \eqref{eq:epd} даёт
+$\dot a\,e_k = a^2\,e_k\times(e_k/I_k) = 0$, откуда $a$ постоянна:
+инвариантные точки в $\ker\bbL$~--- в точности равновесия $ae_k$.
+\end{proof}
+
+\subsection{Топология орбит при \texorpdfstring{$\nu=0$}{nu=0}}
+
+\begin{proposition}[периодичность]\label{prop:periodic}
+Пусть $\nu = 0$, моменты $I_1, I_2, I_3$ попарно различны и
+$\Om_0$ не лежит на осях $\{ \pm a e_k \}$. Тогда орбита
+$\{\Om(t)\}$~--- замкнутая гладкая кривая (окружность Лиувилля),
+и движение по ней периодично.
+\end{proposition}
+
+\begin{proof}
+\emph{Шаг 1: равновесия.} При $\nu = 0$ равновесия удовлетворяют
+$\Om\times\bbI^{-1}\Om = 0$, т.е. $\Om \parallel \bbI^{-1}\Om$~---
+$\Om$ собственный вектор $\bbI^{-1}$, значит $\Om \in \bigcup_k
+\operatorname{span}\{e_k\}$; на сфере $S^2_R$ это шесть точек
+$\pm Re_k$, $R = \|\Om_0\|$.
+
+\emph{Шаг 2: критические точки $\mathcal H|_{S^2_R}$.} Множитель
+Лагранжа для условного экстремума $\mathcal H$ на сфере даёт
+$\Omega_k(1/I_k - \lambda) = 0$ для всех $k$; нетривиальные решения~---
+снова $\pm Re_k$. В этих шести точках $\mathcal H|_{S^2_R}$ принимает
+три попарно различных значения $\tfrac{R^2}{2I_k}$, и все они
+невырождены (попарное различие $I_k$).
+
+\emph{Шаг 3: структура регулярных уровней.} Пусть
+$h \notin \{\tfrac{R^2}{2I_k}\}$ и
+$L_h = \{\Om \in S^2_R : \mathcal H(\Om) = h\}$. На $L_h$ градиент
+$\mathcal H|_{S^2_R}$ не обращается в нуль, поэтому по теореме о
+неявной функции $L_h$~--- гладкое компактное одномерное многообразие
+без края; по классификации компактных одномерных многообразий каждая
+его компонента диффеоморфна окружности. По теореме~\ref{th:casimir} и
+предложению~\ref{prop:poisson} ($\nu = 0$: гамильтонов поток) обе
+функции $C$ и $\mathcal H$ сохраняются, значит каждая компонента
+$L_h$ инвариантна относительно потока.
+
+\emph{Шаг 4: периодичность.} На $L_h$ векторное поле \eqref{eq:ep} не
+обращается в нуль (нули~--- в точности равновесия шага~1, лежащие на
+критических уровнях). Параметризуем компоненту углом $\theta$; тогда
+$\dot\theta = a(\theta)$, где $a$ непрерывна и без нулей на
+компактной окружности, значит $|a| \ge a_0 > 0$ и время полного
+обхода
+\[
+  T = \oint \frac{d\theta}{|a(\theta)|} \le \frac{2\pi}{a_0} < \infty .
+\]
+Следовательно каждая орбита~--- вся компонента $L_h$, проходимая за
+конечное время $T$: движение периодично.
+\end{proof}
+
+\begin{proposition}[устойчивость равновесий]\label{prop:stability}
+Пусть $\nu = 0$, $I_1 > I_2 > I_3$. На сфере $S^2_R$ точки $\pm Re_1$
+и $\pm Re_3$ устойчивы по Ляпунову, точки $\pm Re_2$ неустойчивы:
+линеаризация в $Re_2$ имеет действительные собственные значения
+\[
+  \lambda_{\pm} = \pm R\sqrt{\Bigl(\tfrac1{I_1}-\tfrac1{I_2}\Bigr)
+                           \Bigl(\tfrac1{I_2}-\tfrac1{I_3}\Bigr)} \ne 0 .
+\]
+\end{proposition}
+
+\begin{proof}
+\emph{Устойчивость $\pm Re_1$, $\pm Re_3$.} На $S^2_R$ вблизи $Re_1$
+($I_1$~--- максимум)
+\[
+  \mathcal H - \mathcal H(Re_1)
+  = \tfrac12\sum_{k=2}^{3}\Bigl(\tfrac1{I_k}-\tfrac1{I_1}\Bigr)\Omega_k^2
+  \ge c\,\bigl(\Omega_2^2+\Omega_3^2\bigr), \qquad c > 0,
+\]
+т.е. $\mathcal H|_{S^2_R}$ имеет строгий локальный минимум в $Re_1$;
+сохранение $\mathcal H$ и тот факт, что малые уровни $\mathcal H|_{S^2_R}$
+суть малые замкнутые кривые вокруг $Re_1$ (следствие
+предложения~\ref{prop:periodic}), дают устойчивость по Ляпунову;
+для $Re_3$ ($I_3$~--- минимум) аналогично с максимумом $-\mathcal H$.
+
+\emph{Неустойчивость $Re_2$.} Положим $\Om = Re_2 + \xi$,
+$\|\xi\|$ мало. Линеаризация \eqref{eq:ep}:
+\[
+  \dot\xi = Re_2\times\bbI^{-1}\xi + \xi\times\bbI^{-1}(Re_2)
+  = R\Bigl(\tfrac{\xi_3}{I_3},\,0,\,-\tfrac{\xi_1}{I_1}\Bigr)
+    + \Bigl(-\tfrac{R}{I_2}\xi_3,\,0,\,\tfrac{R}{I_2}\xi_1\Bigr),
+\]
+и после приведения
+\[
+  \dot\xi_1 = -R\Bigl(\tfrac1{I_2}-\tfrac1{I_3}\Bigr)\xi_3,
+  \qquad
+  \dot\xi_3 = R\Bigl(\tfrac1{I_2}-\tfrac1{I_1}\Bigr)\xi_1,
+  \qquad \dot\xi_2 = 0 .
+\]
+Матрица $\begin{psmallmatrix}0 & -a\\ b & 0\end{psmallmatrix}$,
+$a = R(\tfrac1{I_2}-\tfrac1{I_3}) < 0$,
+$b = R(\tfrac1{I_2}-\tfrac1{I_1}) > 0$, имеет
+$\lambda_{\pm}^2 = -ab > 0$, т.е. $\lambda_+ > 0$~--- по теореме об
+неустойчивости по первому приближению \cite[гл.~VII]{hartman}
+равновесие неустойчиво (эффект «теннисной ракетки»/Джанибекова).
+\end{proof}

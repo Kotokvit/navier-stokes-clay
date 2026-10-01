@@ -1,0 +1,104 @@
+\needspace{0.25\textheight}
+\section{Отсутствие сингулярностей в модели}\label{sec:noblowup}
+
+\begin{theorem}[главная]\label{th:main}
+Пусть выполнена \textup{(H1)}. Тогда для решения \eqref{eq:epd}:
+\begin{enumerate}[label=\textup{(\roman*)}, leftmargin=2.4em, itemsep=1pt]
+  \item решение существует и единственно при всех $t \ge 0$ при любом
+        $\nu \ge 0$ (теорема~\ref{th:wp});
+  \item \emph{априорная оценка}: $\displaystyle\sup_{t\ge0}\|\Om(t)\|
+        \le \|\Om_0\| < \infty$ (теорема~\ref{th:casimir});
+  \item при $\nu = 0$: $\|\Om(t)\| \equiv \|\Om_0\|$, орбита замкнута
+        и периодична, если $\Om_0$ не осевая
+        (предложение~\ref{prop:periodic});
+  \item при $\nu > 0$, $\lambda_{\min}(\bbL) > 0$:
+        $\|\Om(t)\| \le \|\Om_0\|\,e^{-\nu\lambda_{\min}t} \to 0$
+        (следствие~\ref{cor:decay}, теорема~\ref{th:lasalle});
+  \item при \textup{(H2)}: $\mathcal H(t) \le \mathcal H(0)$
+        (теорема~\ref{th:ham});
+  \item \emph{нет сингулярности}: для любого $T^{*} \le \infty$
+        \begin{equation}\label{eq:noblowup}
+          \limsup_{t \to T^{*}} \|\Om(t)\| \;\le\; \|\Om_0\| \;<\; \infty ,
+        \end{equation}
+        и все «серриновские» интегралы конечны тривиально:
+        $\int_0^{T}\|\Om(t)\|^{p}dt \le \|\Om_0\|^{p}T < \infty$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Пункты (i)--(v)~--- сборка результатов \S\ref{sec:ep}--\S\ref{sec:inv};
+покажем (vi). По (ii) функция $t \mapsto \|\Om(t)\|$ ограничена
+константой $\|\Om_0\|$ на всём $[0,\infty)$, откуда
+$\limsup_{t\to T^{*}}\|\Om(t)\| \le \|\Om_0\|$ для любого
+$T^{*} \le \infty$. Конечность интегралов~--- непосредственная
+оценка под интегралом.
+\end{proof}
+
+\begin{proof}[Комментарий к доказательству]
+Содержание оценки \eqref{eq:noblowup}~--- в её механизме: вся
+нелинейность $\Om\times\bbI^{-1}\Om$ есть чисто кососимметричный
+поворот фазы, ортогональный вектору состояния
+($\langle\Om,\Om\times\om\rangle = \det[\Om,\Om,\om] = 0$ при всех
+$\om$), а потому \emph{в принципе не способна увеличивать норму}
+завихренности; всё возрастание подавлено структурой, а не малостью
+коэффициентов. Знак определяет только диссипативный член, и он
+неотрицателен по \textup{(H1)}.
+\end{proof}
+
+\subsection{Явные решения: осесимметричный случай}
+
+\begin{proposition}[явные решения]\label{prop:axisym}
+Пусть $I_1 = I_2 =: I_\perp$ и $\bbL = \diag(\lambda,\lambda,L_{33})$
+изотропен в плоскости симметрии. Положим
+$z(t) := \Omega_1(t) + i\,\Omega_2(t)$,
+$z_0 := \Omega_1(0) + i\,\Omega_2(0)$,
+$\Omega_3^0 := \Omega_3(0)$,
+$\kappa_0 := \bigl(\tfrac1{I_3}-\tfrac1{I_\perp}\bigr)\Omega_3^0$.
+Тогда решение \eqref{eq:epd} выражается в явном виде:
+\begin{align}
+  \nu = 0:\qquad & \Omega_3(t) \equiv \Omega_3^0, \qquad
+    z(t) = z_0\,e^{-i\kappa_0 t}, \label{eq:exact-nu0}\\
+  \nu > 0,\ L_{33} > 0:\qquad & \Omega_3(t) = \Omega_3^0\,e^{-\nu L_{33}t},
+    \qquad z(t) = z_0\,
+    \exp\!\Bigl(-\nu\lambda t - i\,\kappa_0\,
+    \frac{1-e^{-\nu L_{33}t}}{\nu L_{33}}\Bigr). \label{eq:exact-nup}
+\end{align}
+\end{proposition}
+
+\begin{proof}
+При $I_1 = I_2$ система \eqref{eq:components} принимает вид
+\[
+  \dot\Omega_1 = \kappa(t)\,\Omega_2 - \nu\lambda\,\Omega_1,\qquad
+  \dot\Omega_2 = -\kappa(t)\,\Omega_1 - \nu\lambda\,\Omega_2,\qquad
+  \dot\Omega_3 = -\nu L_{33}\,\Omega_3,
+\]
+где $\kappa(t) = \bigl(\tfrac1{I_3}-\tfrac1{I_\perp}\bigr)\Omega_3(t)$
+(перекрёстные члены $\propto \Omega_1\Omega_3$, $\Omega_2\Omega_3$
+симметричны и сокращаются). Третье уравнение~--- линейное, откуда
+$\Omega_3(t) = \Omega_3^0e^{-\nu L_{33}t}$ (при $\nu = 0$~---
+константа). Для $z$: $\dot z = \dot\Omega_1 + i\dot\Omega_2
+= \kappa\Omega_2 - \nu\lambda\Omega_1 + i(-\kappa\Omega_1 - \nu\lambda\Omega_2)
+= -i\kappa(t)\,z - \nu\lambda\,z$. Это линейное уравнение с переменным
+коэффициентом, и
+\[
+  z(t) = z_0\exp\!\Bigl(\int_0^t\bigl(-i\kappa(s) - \nu\lambda\bigr)ds\Bigr),
+  \qquad
+  \int_0^t \kappa(s)\,ds = \kappa_0\,\frac{1-e^{-\nu L_{33}t}}{\nu L_{33}},
+\]
+что даёт \eqref{eq:exact-nup}; при $\nu = 0$ интеграл равен $\kappa_0 t$,
+и получается \eqref{eq:exact-nu0}.
+\end{proof}
+
+\begin{remark}[конечная фаза]
+Формула \eqref{eq:exact-nup} вскрывает тонкий эффект: суммарный угол
+поворота фазы за бесконечное время конечен,
+\[
+  \int_0^\infty \kappa(s)\,ds = \frac{\kappa_0}{\nu L_{33}} < \infty :
+\]
+вязкое затухание компоненты $\Omega_3$ останавливает прецессию.
+При $\nu = 0$ движение~--- чистая прецессия с периодом
+$T = 2\pi/|\kappa_0|$ (частный случай
+предложения~\ref{prop:periodic}). Численная проверка точности формул
+\eqref{eq:exact-nu0}--\eqref{eq:exact-nup} и порядка сходимости RK4~---
+тесты A1--A2 в \S\ref{sec:numerics}.
+\end{remark}

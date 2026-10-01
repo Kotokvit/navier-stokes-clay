@@ -1,0 +1,255 @@
+\needspace{0.25\textheight}
+\section{Каскад редукции \texorpdfstring{$P^3 \to 2D \to 1D \to 0D$}{P3 -> 2D -> 1D -> 0D}}\label{sec:cascade}
+
+\subsection{Шаг $P^3 \to 2D$: обнуление растяжения}
+
+\begin{lemma}[о растяжении]\label{lem:strain}
+Пусть $\bu \in C^1$, $\nabla\cdot\bu = 0$, $\bwn = \nabla\times\bu$. Обозначим
+\[
+  S := \tfrac12\bigl(\nabla\bu + (\nabla\bu)^{\mathsf T}\bigr),\qquad
+  W := \tfrac12\bigl(\nabla\bu - (\nabla\bu)^{\mathsf T}\bigr)
+\]
+тензоры деформации и завихривания. Тогда
+\begin{equation}\label{eq:stretch}
+  (\bwn\cdot\nabla)\bu = S\,\bwn
+  \qquad\text{и}\qquad
+  W\,\bwn = 0 .
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+В компонентах $W_{ij} = \tfrac12(\partial_ju_i - \partial_iu_j)
+= \tfrac12\varepsilon_{ijk}\,\omega_k$ (проверяется на паре $(i,j)=(1,2)$
+и распространяется циклическими перестановками). Тогда
+\[
+  (W\bwn)_i = W_{ij}\omega_j = \tfrac12\varepsilon_{ijk}\omega_k\omega_j = 0 ,
+\]
+поскольку сумма $\varepsilon_{ijk}\omega_k\omega_j$ переходит в себя
+при переименовании $j \leftrightarrow k$ и одновременно меняет знак.
+Далее, $(\bwn\cdot\nabla)\bu = (\nabla\bu)\,\bwn = (S+W)\bwn = S\bwn$.
+\end{proof}
+
+\begin{theorem}[Ладыженская, энстрофия]\label{th:ladyzh}
+Пусть $\bu = \bu(x_1,x_2,t)$ двуммерно и бездивергентно. Тогда
+$\bwn = \omega_3\,e_3$, член растяжения тождественно равен нулю:
+$(\bwn\cdot\nabla)\bu = \omega_3\,\partial_3\bu = 0$, и энстрофия
+удовлетворяет
+\begin{equation}\label{eq:enstrophy}
+  \frac{d}{dt}\,\frac12\|\bwn(\cdot,t)\|_{L^2}^2 = -\nu\,\|\nabla\bwn(\cdot,t)\|_{L^2}^2 \;\le\; 0 .
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Умножим \eqref{eq:ns-vort} скалярно на $\bwn$ и проинтегрируем по
+периодической области (или по $\R^2$ с убыванием на бесконечности):
+\[
+  \tfrac12\frac{d}{dt}\|\bwn\|_{L^2}^2
+  = \int (\bwn\cdot\nabla)\bu\cdot\bwn\,dx
+  - \int(\bu\cdot\nabla)\bwn\cdot\bwn\,dx
+  + \nu\int \Delta\bwn\cdot\bwn\,dx .
+\]
+Транспортный член обнуляется интегрированием по частям
+($\nabla\cdot\bu = 0$): $\int(\bu\cdot\nabla)\bwn\cdot\bwn\,dx
+= -\tfrac12\int(\bu\cdot\nabla)|\bwn|^2dx = 0$. Член растяжения равен
+нулю по условию теоремы. Вязкий член:
+$\int\Delta\bwn\cdot\bwn\,dx = -\|\nabla\bwn\|_{L^2}^2$.
+\end{proof}
+
+\begin{proposition}[2D-сечение модели]\label{prop:2dplane}
+Плоскость $\{\Omega_3 = 0\}$ инвариантна относительно \eqref{eq:epd}
+тогда и только тогда, когда $I_1 = I_2$. В этом случае на сечении
+\[
+  \dot\Omega_1 = -\nu L_{11}\Omega_1,\qquad
+  \dot\Omega_2 = -\nu L_{22}\Omega_2,\qquad
+  \frac{d}{dt}\bigl(\Omega_1^2+\Omega_2^2\bigr)
+  = -2\nu\bigl(L_{11}\Omega_1^2 + L_{22}\Omega_2^2\bigr) \le 0,
+\]
+что в точности повторяет структуру \eqref{eq:enstrophy}.
+\end{proposition}
+
+\begin{proof}
+По \eqref{eq:components} на плоскости $\Omega_3 = 0$
+\[
+  \dot\Omega_3 = \Bigl(\tfrac1{I_2}-\tfrac1{I_1}\Bigr)\Omega_1\Omega_2 ,
+\]
+и это выражение тождественно нулю на всей плоскости (при произвольных
+$\Omega_1, \Omega_2$) iff $I_1 = I_2$; необходимость очевидна
+($\Omega_1\Omega_2 \not\equiv 0$), достаточность~--- подстановка.
+Закон для $C_2 = \Omega_1^2+\Omega_2^2$~--- прямое вычисление.
+\end{proof}
+
+\subsection{Шаг $2D \to 1D$: линеаризация Коула--Хопфа}
+
+\begin{theorem}[Коул--Хопф]\label{th:colehopf}
+Пусть $\phi \in C^{2,1}$, $\phi > 0$, и $\phi$ решает уравнение
+теплопроводности $\partial_t\phi = \nu\,\partial_{xx}\phi$ на окружности
+$\mathbb T$. Тогда
+\begin{equation}\label{eq:colehopf}
+  u(x,t) := -2\nu\,\partial_x\ln\phi(x,t) = -2\nu\,\frac{\phi_x}{\phi}
+\end{equation}
+решает уравнение Бюргерса $u_t + uu_x = \nu u_{xx}$ на $\mathbb T$.
+\end{theorem}
+
+\begin{proof}
+Обозначим $B := (\ln\phi)_x$, $A := (\ln\phi)_{xx} = B_x$, так что
+$u = -2\nu B$, $u_x = -2\nu A$, $u_{xx} = -2\nu A_x$,
+$u_t = -2\nu B_t$. Из $\phi_t = \nu\phi_{xx}$:
+\[
+  B_t = \partial_x\Bigl(\frac{\phi_t}{\phi}\Bigr)
+      = \partial_x\Bigl(\frac{\nu\phi_{xx}}{\phi}\Bigr)
+      = \nu\,\partial_x\bigl(A + B^2\bigr)
+      = \nu A_x + 2\nu B B_x = \nu A_x + 2\nu B A .
+\]
+Подставим в невязку уравнения Бюргерса:
+\[
+  u_t + uu_x - \nu u_{xx}
+  = -2\nu B_t + 4\nu^2 BA + 2\nu^2 A_x
+  = -2\nu\bigl(\nu A_x + 2\nu BA\bigr) + 4\nu^2 BA + 2\nu^2 A_x = 0.
+  \qedhere
+\]
+\end{proof}
+
+\begin{corollary}[глобальная регулярность]\label{cor:burgers-global}
+Для гладкого $\phi_0 > 0$ на $\mathbb T$ существует единственное
+гладкое решение Бюргерса при всех $t > 0$: по принципу максимума
+$\phi(\cdot,t) \ge \min \phi_0 > 0$, тёплое ядро даёт
+\[
+  \phi(x,t) = \int_{\mathbb T} G(x-y,t)\,\phi_0(y)\,dy \in C^\infty,
+  \qquad
+  \|u(\cdot,t)\|_\infty \le \frac{2\nu\,\|\phi_x(\cdot,t)\|_\infty}{\min_{\mathbb T}\phi_0},
+\]
+и сингулярности (образование ударной волны при $\nu = 0$) полностью
+регуляризуются вязкостью.
+\end{corollary}
+
+\begin{proof}
+Единственность и гладкость $\phi$~--- стандартная теория уравнения
+теплопроводности на компактном многообразии; положительность~---
+принцип максимума; формула~--- свёртка с ядром Грина; оценка~---
+непосредственно из \eqref{eq:colehopf}.
+\end{proof}
+
+\subsection{Шаг $1D \to 0D$: спектральный проектор МакВини}
+
+\begin{definition}\label{def:proj}
+Для $\Om \ne 0$ положим
+\[
+  \bbP(\Om) := \frac{\Om\,\Om^{\mathsf T}}{\|\Om\|^2} \in \R^{3\times3},
+  \qquad
+  \mathcal Q(\bbP) := 3\bbP^2 - 2\bbP^3 .
+\]
+\end{definition}
+
+\begin{lemma}[точный проектор]\label{lem:rank1}
+При любом $\Om \ne 0$ матрица $\bbP(\Om)$~--- ортогональный проектор:
+$\bbP^2 = \bbP = \bbP^{\mathsf T}$, $\spec\bbP = \{1,0,0\}$, и
+$\mathcal Q(\bbP) = \bbP$ тождественно.
+\end{lemma}
+
+\begin{proof}
+\[
+  \bbP^2 = \frac{\Om(\Om^{\mathsf T}\Om)\Om^{\mathsf T}}{\|\Om\|^4}
+  = \frac{\Om\|\Om\|^2\Om^{\mathsf T}}{\|\Om\|^4} = \bbP;
+  \qquad
+  \bbP\,\Om = \frac{\Om(\Om^{\mathsf T}\Om)}{\|\Om\|^2} = \Om,
+\]
+а на ортогональном дополнении $\operatorname{span}\{\Om\}^\perp$ имеем
+$\bbP v = 0$; отсюда спектр. Подстановка $\bbP^2 = \bbP$,
+$\bbP^3 = \bbP$ даёт $\mathcal Q(\bbP) = 3\bbP - 2\bbP = \bbP$.
+\end{proof}
+
+\begin{lemma}[спектральный расчёт]\label{lem:q-spectral}
+Пусть $\bbP = \bbP^{\mathsf T}$, $\spec\bbP \subset [0,1]$, и
+$q(\lambda) = 3\lambda^2 - 2\lambda^3$. Тогда
+\begin{equation}\label{eq:factorization}
+  q(\lambda)^2 - q(\lambda)
+  = -\lambda^2(1-\lambda)^2\,(3-2\lambda)(2\lambda+1),
+\end{equation}
+и, следовательно,
+\begin{equation}\label{eq:q-bound}
+  \|\mathcal Q(\bbP)^2 - \mathcal Q(\bbP)\|
+  \le 4\,\|\bbP^2 - \bbP\|^2 .
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Разложение \eqref{eq:factorization}: $q(\lambda) = \lambda^2(3-2\lambda)$;
+далее $(1-\lambda)^2(2\lambda+1) = 1 - 3\lambda^2 + 2\lambda^3$, откуда
+$q(\lambda) - 1 = -(1-\lambda)^2(2\lambda+1)$, и перемножение даёт
+\eqref{eq:factorization}. На отрезке $[0,1]$ функция
+$p(\lambda) := (3-2\lambda)(2\lambda+1) = -4\lambda^2+4\lambda+3$
+удовлетворяет $p(\lambda) \le 4$, причём $p(\tfrac12) = 4$~--- максимум
+($p'(\lambda) = -8\lambda+4$). Поэтому
+\[
+  |q(\lambda)^2 - q(\lambda)| = \lambda^2(1-\lambda)^2\,p(\lambda)
+  \le 4\lambda^2(1-\lambda)^2 .
+\]
+Функциональное исчисление: матрица $\bbP$ эрмитова, значит унитарно
+диагонализуема, $\bbP = U D U^{*}$, где $D = \diag(\lambda_1,\lambda_2,\lambda_3)$;
+полиномы от $\bbP$ диагонализуются тем же $U$, и
+\begin{gather*}
+  \|\bbP^2-\bbP\| = \max_i|\lambda_i^2-\lambda_i| = \max_i \lambda_i(1-\lambda_i),\\
+  \|\mathcal Q(\bbP)^2-\mathcal Q(\bbP)\|
+  = \max_i |q(\lambda_i)^2-q(\lambda_i)| ,
+\end{gather*}
+так как $\mathcal Q(\bbP)^2-\mathcal Q(\bbP) = (q^2-q)(\bbP)$ также
+эрмитова. Комбинируя с поточечной оценкой:
+\[
+  \|\mathcal Q(\bbP)^2-\mathcal Q(\bbP)\|
+  \le 4\max_i \lambda_i^2(1-\lambda_i)^2
+  \le 4\Bigl(\max_i \lambda_i(1-\lambda_i)\Bigr)^{\!2}
+  = 4\,\|\bbP^2-\bbP\|^2 . \qedhere
+\]
+\end{proof}
+
+\begin{theorem}[оценка дефекта МакВини; оптимальность константы]\label{th:mcweeny}
+Оценка \eqref{eq:q-bound} верна для всех эрмитовых $\bbP$ со спектром
+в $[0,1]$, и константа $4$ неулучшаема: для скалярного случая
+$\bbP = (\tfrac12)$ имеет место точное равенство
+\[
+  \|\mathcal Q(\bbP)^2-\mathcal Q(\bbP)\| = \tfrac14 = 4\cdot\Bigl(\tfrac14\Bigr)^{\!2} = 4\,\|\bbP^2-\bbP\|^2 .
+\]
+\end{theorem}
+
+\begin{proof}
+Оценка~--- лемма~\ref{lem:q-spectral}. Равенство при $\lambda=\tfrac12$:
+$\lambda(1-\lambda) = \tfrac14$,
+$|q^2-q| = \tfrac14\cdot\tfrac14\cdot p(\tfrac12) = \tfrac1{16}\cdot4 = \tfrac14$
+и $4\|\bbP^2-\bbP\|^2 = 4\cdot\tfrac1{16} = \tfrac14$.
+\end{proof}
+
+\begin{proposition}[итерация МакВини]\label{prop:mcweeny-iter}
+Точки $\lambda \in \{0,\,1\}$~--- притягивающие неподвижные точки
+отображения $q$, точка $\tfrac12$~--- отталкивающая:
+$q'(\tfrac12) = \tfrac32 > 1$. Для $\lambda_0 \in [0,1)$ итерации
+$\lambda_{n+1} = q(\lambda_n)$ монотонны и сходятся к $0$ при
+$\lambda_0 \in (0,\tfrac12)$ и к $1$ при $\lambda_0 \in (\tfrac12,1)$.
+\end{proposition}
+
+\begin{proof}
+Разложение
+\[
+  q(\lambda) - \lambda = \lambda(1-\lambda)(2\lambda-1)
+\]
+проверяется раскрытием скобок и даёт знак: $q(\lambda) < \lambda$ на
+$(0,\tfrac12)$, $q(\lambda) > \lambda$ на $(\tfrac12,1)$. Монотонная
+ограниченная последовательность сходится; предел~--- неподвижная точка
+$q$, а неподвижные точки суть корни $\lambda(1-\lambda)(2\lambda-1)=0$,
+т.е. $\{0,\tfrac12,1\}$; предел не может равняться $\tfrac12$ для
+строго монотонной последовательности. Производная
+$q'(\lambda) = 6\lambda-6\lambda^2$, $q'(\tfrac12) = \tfrac32$.
+\end{proof}
+
+\begin{remark}
+В самой модели $\bbP(\Om(t))$~--- \emph{точно} идемпотентный проектор
+(лемма~\ref{lem:rank1}) при всех $t$ с $\Om(t) \ne 0$: дефект
+идемпотентности равен нулю тождественно, и $0 \le 4\cdot 0^2$~--- оценка
+\eqref{eq:q-bound} вырождается в равенство нулей. Содержательная роль
+полинома МакВини~--- устойчивость к возмущениям: если численная или
+модельная погрешность выводит матрицу из множества проекторов
+($\|\bbP^2-\bbP\| = \varepsilon$), однократное применение $\mathcal Q$
+подавляет дефект квадратично: до величины $\le 4\varepsilon^2$
+(см.~\cite{mcweeny}). Особенность $\Om = 0$ устранима: $\bbP$ не
+определена лишь в точке, куда траектория приходит только
+асимптотически при $\bbL \succ 0$ (теорема~\ref{th:lasalle}).
+\end{remark}

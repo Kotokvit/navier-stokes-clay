@@ -1,0 +1,215 @@
+\needspace{0.25\textheight}
+\section{Уравнения Эйлера--Пуанкаре с диссипацией}\label{sec:ep}
+
+\subsection{Вариационный вывод}
+
+Зафиксируем гладкую кривую $g(t) \in \mathrm{SO}(3)$, $t \in [0,T]$,
+и следом за \cite{arnold,hmr,marsdenratiu} положим
+\[
+  \hat{\om}(t) := g(t)^{-1}\dot g(t) \in \so,
+  \qquad
+  \Om(t) := \bbI\,\om(t) \in \so^{*} \cong \R^3 .
+\]
+Редуцированный лагранжиан~--- кинетическая энергия вихревой трубки:
+$\ell(\om) = \tfrac12\langle \om, \bbI\om\rangle$; тогда
+$\delta\ell/\delta\om = \Om$ (отождествление $\so^{*} \cong \so$~---
+метрикой Киллинга, лемма~\ref{lem:killing}).
+
+\begin{lemma}[об усечённых вариациях]\label{lem:variation}
+Пусть $g_\varepsilon$~--- гладкая вариация кривой $g$ с закреплёнными
+концами: $g_\varepsilon(0) \equiv g(0)$, $g_\varepsilon(T) \equiv g(T)$.
+Положим $\hat\eta := g^{-1}\delta g$, где
+$\delta g = \left.\partial_\varepsilon g_\varepsilon\right|_{\varepsilon=0}$.
+Тогда $\eta(0) = \eta(T) = 0$ и
+\begin{equation}\label{eq:varomega}
+  \delta\hat{\om} = \dot{\hat\eta} + [\hat\om, \hat\eta] .
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Тождество $g_\varepsilon g_\varepsilon^{-1} \equiv \mathrm{Id}$ даёт
+при дифференцировании по $\varepsilon$:
+$\delta(g^{-1}) = -g^{-1}\,\delta g\,g^{-1}$. Далее, из
+$\hat\om = g^{-1}\dot g$:
+\[
+  \delta\hat\om
+  = \delta(g^{-1})\,\dot g + g^{-1}\,\delta(\dot g)
+  = -g^{-1}\delta g\,g^{-1}\dot g + g^{-1}\partial_t(\delta g).
+\]
+Так как $\delta g = g\hat\eta$, то
+$\partial_t(\delta g) = \dot g\,\hat\eta + g\,\dot{\hat\eta}$, и потому
+\[
+  \delta\hat\om = -\hat\eta\hat\om + \hat\om\hat\eta + \dot{\hat\eta}
+  = \dot{\hat\eta} + [\hat\om,\hat\eta].
+  \qedhere
+\]
+\end{proof}
+
+\begin{theorem}[Эйлер--Пуанкаре]\label{th:ep}
+Кривая $g(\cdot)$~--- критическая точка функционала
+$\int_0^T \ell(\om)\,dt$ относительно вариаций с закреплёнными концами
+тогда и только тогда, когда
+\begin{equation}\label{eq:ep}
+  \dot\Om = \adst_{\om}\,\Om = \Om \times \om = \Om \times \bbI^{-1}\Om .
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+По лемме~\ref{lem:variation} и правилу дифференцирования композиции,
+\[
+  \delta \int_0^T \ell(\om)\,dt
+  = \int_0^T \langle \Om,\, \dot\eta + \om\times\eta\rangle\,dt
+  = -\int_0^T \langle \dot\Om,\,\eta\rangle\,dt
+    + \int_0^T \langle \Om,\,\om\times\eta\rangle\,dt ,
+\]
+где граничный член $[\langle\Om,\eta\rangle]_0^T$ обнуляется, ибо
+$\eta(0) = \eta(T) = 0$. Второй интеграл перепишем через коалгебраическое
+действие: по определению
+$\langle \adst_{\om}\Om, \eta\rangle := \langle \Om, [\om,\eta]\rangle
+= \Om\cdot(\om\times\eta)$; цикличность смешанного произведения даёт
+\begin{equation}\label{eq:adstar}
+  \Om\cdot(\om\times\eta) = \eta\cdot(\Om\times\om)
+  \qquad\Longrightarrow\qquad
+  \adst_{\om}\Om = \Om\times\om .
+\end{equation}
+Итого $\delta S = \int_0^T \langle -\dot\Om + \Om\times\om,\;\eta\rangle dt$,
+и обращение в нуль для всех $\eta$ равносильно \eqref{eq:ep}.
+\end{proof}
+
+\subsection{Диссипативное расширение и постановка задачи}
+
+Вязкое слагаемое уравнения \eqref{eq:ns-vort} в редуцированной модели
+представляется линейным оператором затухания. Далее всюду
+\begin{equation}\label{eq:epd}
+  \boxed{\;
+  \dot\Om = \underbrace{\Om\times(\bbI^{-1}\Om)}_{\text{поворот фазы}}
+  \;-\; \nu\,\bbL\,\Om,\qquad
+  \Om(0) = \Om_0,}
+\end{equation}
+при гипотезах
+\begin{itemize}[leftmargin=2.2em, itemsep=1pt]
+  \item[\textup{(H1)}] $\bbL = \bbL^{\mathsf T} \succeq 0$~--- всюду;
+  \item[\textup{(H2)}] $[\bbL, \bbI] = 0$ (эквивалентно: $\bbL$ диагонален
+        в главном базисе $\bbI$)~--- там, где указано явно.
+\end{itemize}
+Слагаемое $\nu\bbL\Om$~--- структурный аналог $\nu\Delta\bwn$: оператор
+$\bbL$ играет роль положительного «символа» $-\Delta$, что уточняется
+балансом энстрофии в \S\ref{sec:cascade}. В покомпонентной записи
+\eqref{eq:epd} принимает вид
+\begin{equation}\label{eq:components}
+  \begin{aligned}
+    \dot\Omega_1 &= \Bigl(\tfrac1{I_3}-\tfrac1{I_2}\Bigr)\Omega_2\Omega_3 - \nu L_{11}\Omega_1,\\
+    \dot\Omega_2 &= \Bigl(\tfrac1{I_1}-\tfrac1{I_3}\Bigr)\Omega_3\Omega_1 - \nu L_{22}\Omega_2,\\
+    \dot\Omega_3 &= \Bigl(\tfrac1{I_2}-\tfrac1{I_1}\Bigr)\Omega_1\Omega_2 - \nu L_{33}\Omega_3,
+  \end{aligned}
+\end{equation}
+где в последней строке использована (H2); при $\nu = 0$ это классические
+уравнения Эйлера для твёрдого тела \cite{euler,arnold}.
+
+\subsection{Гамильтонова структура: скобка Ли--Пуансона}
+
+\begin{proposition}\label{prop:poisson}
+На $C^\infty(\R^3)$ скобка
+\begin{equation}\label{eq:lp}
+  \{F,G\}(\Om) := -\bigl\langle \Om,\; \nabla F(\Om)\times\nabla G(\Om)\bigr\rangle
+\end{equation}
+корректно определена, билинейна, кососимметрична и удовлетворяет
+тождеству Якоби; функция
+\[
+  C(\Om) = \tfrac12\|\Om\|^2
+\]
+является Казимиром скобки: $\{C,F\} \equiv 0$ для всех $F$. Система
+\eqref{eq:ep} есть гамильтонова система $\dot f = \{f,\mathcal H\}$
+с гамильтонианом $\mathcal H(\Om) = \tfrac12\langle\Om,\bbI^{-1}\Om\rangle$.
+\end{proposition}
+
+\begin{proof}
+Билинейность и кососимметрия очевидны. \emph{Тождество Якоби.}
+Обозначим $x = \nabla X(\Om)$, $y = \nabla Y(\Om)$, $z = \nabla Z(\Om)$,
+$X'' = \nabla^2X(\Om)$ и т.д. Дифференцирование произведения в
+\eqref{eq:lp} даёт (используется симметрия гессианов):
+\begin{equation}\label{eq:gradbracket}
+  \nabla\{X,Y\}(\Om) = -(x\times y) - X''\,(y\times\Om) - Y''\,(\Om\times x).
+\end{equation}
+Действительно, $\partial_i\bigl[\Om_\ell\varepsilon_{\ell mn}\partial_mX\,\partial_nY\bigr]
+= \varepsilon_{imn}x_my_n + \Om_\ell\varepsilon_{\ell mn}
+\bigl(X''_{im}y_n + x_mY''_{in}\bigr)$, и вторая группа сворачивается как
+$\bigl[X''(y\times\Om) + Y''(\Om\times x)\bigr]_i$
+(перестановка циклов смешанного произведения; симметрия $X''$, $Y''$
+существенна). Подставляя \eqref{eq:gradbracket} в \eqref{eq:lp} с
+внешней парой $(\,\{X,Y\}, Z\,)$ и применяя формулу Лагранжа:
+\begin{equation}\label{eq:closedform}
+  \{\{X,Y\},Z\}(\Om)
+  = (\Om\cdot y)(x\cdot z) - (\Om\cdot x)(y\cdot z)
+  + (y\times\Om)^{\mathsf T} X''\,(z\times\Om)
+  + (\Om\times x)^{\mathsf T} Y''\,(z\times\Om).
+\end{equation}
+Просуммируем \eqref{eq:closedform} и её циклические перестановки
+$(X,Y,Z) \to (Y,Z,X) \to (Z,X,Y)$. Бесгессиановая часть обнуляется:
+слагаемое $(\Om\cdot v)(w\cdot u)$ входит в сумму дважды~---
+с плюсом и с минусом~--- по каждому из трёх векторов. Гессиановые
+члены сокращаются парами: $X''$-члены входят в
+$\{\{X,Y\},Z\}$ и $\{\{Z,X\},Y\}$ как
+\[
+  (y\times\Om)^{\mathsf T}X''(z\times\Om)
+  \;+\;(\Om\times z)^{\mathsf T}X''(y\times\Om)
+  = p - p^{\mathsf T} = 0,
+\]
+где $p := (y\times\Om)^{\mathsf T}X''(z\times\Om)$~--- скаляр, равный
+своему транспонированному виду
+$p^{\mathsf T} = (z\times\Om)^{\mathsf T}X{}''^{\mathsf T}(y\times\Om)
+= (z\times\Om)^{\mathsf T}X''(y\times\Om) = -(\Om\times z)^{\mathsf T}X''(y\times\Om)$,
+и снова использована симметрия $X''$. Аналогично для $Y''$ и $Z''$.
+Итого циклическая сумма равна нулю~--- тождество Якоби.
+
+\emph{Казимир.} $\{C,F\} = -\langle \Om, \Om\times\nabla F\rangle
+= -\det[\Om,\Om,\nabla F] = 0$.
+
+\emph{Гамильтоновость.} Для $f \in C^\infty$ вдоль \eqref{eq:ep}:
+$\dot f = \langle\nabla f, \Om\times\bbI^{-1}\Om\rangle$; с другой
+стороны, $\{f,\mathcal H\} = -\langle\Om, \nabla f\times\bbI^{-1}\Om\rangle
+= \langle \nabla f, \Om\times\bbI^{-1}\Om\rangle$ (цикличность).
+Совпадение даёт $\dot f = \{f,\mathcal H\}$; при $\nabla f = e_k$
+получаем покомпонентно \eqref{eq:ep}.
+\end{proof}
+
+\begin{remark}
+Формула \eqref{eq:closedform}~--- замкнутое выражение двойной скобки
+Ли--Пуансона на $\so^{*}$; стандартные доказательства (см.
+\cite{marsdenratiu,arnoldkhesin}) сводят тождество Якоби к
+структурным константам алгебры. Приведённое выше прямое доказательство
+дополнительно даёт явный вид сокращения гессиановых членов
+($p - p^{\mathsf T} = 0$).
+\end{remark}
+
+\subsection{Корректность задачи Коши}
+
+\begin{theorem}[глобальная корректность]\label{th:wp}
+При любых $\Om_0 \in \R^3$, $\nu \ge 0$ и $\bbL$, удовлетворяющей
+\textup{(H1)}, задача Коши \eqref{eq:epd} имеет единственное
+$C^\infty$-решение на $[0,\infty)$.
+\end{theorem}
+
+\begin{proof}
+Правая часть $f(\Om) = \Om\times\bbI^{-1}\Om - \nu\bbL\Om$ гладка.
+Оценка на шаре $B(0,R)$:
+\[
+  \|f(\Om) - f(\tilde\Om)\|
+  \le \|\bbI^{-1}\|\,\bigl(\|\Om\| + \|\tilde\Om\|\bigr)\,\|\Om-\tilde\Om\|
+     + \nu\|\bbL\|\,\|\Om-\tilde\Om\|
+  \le \bigl(2\|\bbI^{-1}\|R + \nu\|\bbL\|\bigr)\|\Om-\tilde\Om\|,
+\]
+где использовано $\|a\times p - b\times q\|
+\le \|(a-b)\times p\| + \|b\times(p-q)\| \le \|a-b\|\|p\| + \|b\|\|p-q\|$
+и $\|\bbI^{-1}v\| \le \|\bbI^{-1}\|\,\|v\|$. По теореме
+Пикара--Линделёфа существует единственное локальное решение.
+Априорная оценка: вдоль решения
+\[
+  \frac{d}{dt}\|\Om\|^2 = 2\bigl\langle \Om,\Om\times\bbI^{-1}\Om\bigr\rangle
+  - 2\nu\,\langle\Om,\bbL\Om\rangle = -2\nu\,\langle\Om,\bbL\Om\rangle \le 0
+\]
+(тройное произведение с двумя равными сомножителями равно нулю;
+$\bbL \succeq 0$ по \textup{(H1)}). Значит $\|\Om(t)\| \le \|\Om_0\|$,
+решение остаётся в компактном шаре, и критерий продолжения
+\cite[гл.~II]{hartman} даёт продолжение на всё $[0,\infty)$.
+\end{proof}

@@ -1,0 +1,207 @@
+\needspace{0.25\textheight}
+\section{Геометрия многообразия: кватернионы, \texorpdfstring{$\RP^3 \cong \mathrm{SO}(3)$}{RP3=SO(3)} и алгебра \texorpdfstring{$\so$}{so(3)}}\label{sec:geom}
+
+\subsection{Кватернионы и двойное накрытие}
+
+\begin{definition}[алгебра кватернионов]\label{def:quat}
+$\mathbb H$~--- четырёхмерная вещественная алгебра с базисом
+$1, e_1, e_2, e_3$ и таблицей умножения
+$e_1e_2 = e_3$, $e_2e_3 = e_1$, $e_3e_1 = e_2$,
+$e_ie_j = -e_jei$ при $i \ne j$, $e_i^2 = -1$. Сопряжение:
+$\overline{q} = a - be_1 - ce_2 - de_3$ для $q = a + be_1 + ce_2 + de_3$;
+норма $|q|^2 = q\bar q = a^2 + b^2 + c^2 + d^2$. Подпространство чисто
+мнимых кватернионов обозначим $\operatorname{Im}\mathbb H \cong \R^3$.
+\end{definition}
+
+Множество единичных кватернионов $S^3 = \{q : |q| = 1\}$~--- группа
+по умножению, поскольку $|q_1q_2| = |q_1||q_2|$. Зададим отображение
+\begin{equation}\label{eq:conj-action}
+  R(q)v := q\,v\,\bar q, \qquad q \in S^3,\; v \in \operatorname{Im}\mathbb H .
+\end{equation}
+
+\begin{lemma}\label{lem:conjugation}
+Отображение \eqref{eq:conj-action} корректно определено на
+$\operatorname{Im}\mathbb H$, является гомоморфизмом
+$R(q_1q_2) = R(q_1)R(q_2)$ и принимает значения в $\mathrm{SO}(3)$.
+\end{lemma}
+
+\begin{proof}
+Чистота: $\overline{qv\bar q} = q\bar v \bar q = -qv\bar q$ при
+$\bar v = -v$, поэтому $qv\bar q \in \operatorname{Im}\mathbb H$.
+Изометрия: $|qv\bar q| = |q|\,|v|\,|\bar q| = |v|$, значит $R(q)$~---
+ортогональное линейное отображение $\R^3 \to \R^3$. Гомоморфизм:
+$R(q_1q_2)v = q_1q_2 v \bar q_2 \bar q_1 = R(q_1)(R(q_2)v)$.
+Определитель: $S^3$ связно, $\det R(\cdot)$ непрерывен и принимает
+значения $\pm 1$, причём $\det R(1) = 1$; следовательно
+$\det R(q) \equiv 1$ и $R(q) \in \mathrm{SO}(3)$.
+\end{proof}
+
+\begin{lemma}[формула ось--угол]\label{lem:axisangle}
+Пусть $q = \cos\tfrac\theta2 + e_3\sin\tfrac\theta2$. Тогда в базисе
+$e_1, e_2, e_3$
+\begin{equation}\label{eq:rodrigues}
+  R(q)e_1 = \cos\theta\, e_1 + \sin\theta\, e_2,\qquad
+  R(q)e_2 = -\sin\theta\, e_1 + \cos\theta\, e_2,\qquad
+  R(q)e_3 = e_3 .
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Прямое умножение с учётом $e_3e_1 = e_2$, $e_1e_3 = -e_2$,
+$e_2e_3 = e_1$, $e_3e_2 = -e_1$, $e_i^2 = -1$; положим
+$c = \cos\tfrac\theta2$, $s = \sin\tfrac\theta2$. Тогда
+\begin{align}
+  q e_1 \bar q &= (ce_1 + se_3e_1)(c - se_3)
+   = (ce_1 + se_2)(c - se_3)
+   = c^2e_1 - cse_1e_3 + cse_2 - s^2 e_2e_3 \notag\\
+   &= (c^2 - s^2)e_1 + 2cs\,e_2 = \cos\theta\,e_1 + \sin\theta\,e_2,
+   \label{eq:e1}\\
+  q e_2 \bar q &= (ce_2 - se_1)(c - se_3)
+   = c^2e_2 - cse_2e_3 - cse_1 + s^2e_1e_3
+   = \cos\theta\,e_2 - \sin\theta\,e_1, \label{eq:e2}\\
+  q e_3 \bar q &= (ce_3 - s)(c - se_3)
+   = c^2e_3 + cs - cs + s^2e_3 = (c^2+s^2)e_3 = e_3. \label{eq:e3}
+\end{align}
+Формулы \eqref{eq:e1}--\eqref{eq:e3} и есть поворот на угол $\theta$
+вокруг оси $e_3$.
+\end{proof}
+
+\begin{theorem}[$\RP^3 \cong \mathrm{SO}(3)$]\label{th:rp3so3}
+Отображение $R\colon S^3 \to \mathrm{SO}(3)$~--- сюръективный гомоморфизм
+групп с ядром $\{\pm 1\}$. Оно индуцирует гомеоморфизм (и диффеоморфизм)
+\[
+  S^3/\{v \sim -v\} \;=\; \RP^3 \;\longrightarrow\; \mathrm{SO}(3),
+\]
+в частности $\mathrm{SO}(3)$ компактно.
+\end{theorem}
+
+\begin{proof}
+\emph{Ядро.} Пусть $R(q) = \mathrm{Id}$, т.е. $qv = vq$ для всех
+$v \in \operatorname{Im}\mathbb H$. Расписывая $q = a + be_1 + ce_2 + de_3$
+и приравнивая $qe_1 = e_1q$, получаем $ce_3 - de_2 = -ce_3 + de_2$, т.е.
+$c = d = 0$; аналогично из $qe_2 = e_2q$ получаем $b = d = 0$.
+Значит $q = a \in \R \cap S^3 = \{\pm1\}$.
+
+\emph{Сюръективность.} Пусть $A \in \mathrm{SO}(3)$. Характеристический
+многочлен $A$ веществен и нечётной степени, $\det A = 1$, все собственные
+значения по модулю равны $1$; комплексные корни идут парами
+$\lambda, \bar\lambda$, и перемножая, получаем, что $1$~--- собственное
+значение: если все корни вещественны, то $\{1,1,1\}$ либо
+$\{1,-1,-1\}$; если есть пара $e^{\pm i\alpha}$, то третий корень равен
+$1$. Пусть $\bn$~--- соответствующий единичный собственный вектор.
+Ограничение $A$ на плоскость $\bn^\perp$~--- элемент $\mathrm{SO}(2)$,
+поворот на некоторый угол $\theta$. Выбирая в $\bn^\perp$
+ортонормированный базис и сопрягая, сводим задачу к случаю
+$\bn = e_3$, разобранному в лемме~\ref{lem:axisangle}:
+$A = R(\cos\tfrac\theta2 + \bn\sin\tfrac\theta2)$ (формулы
+\eqref{eq:rodrigues}~--- это в точности поворот на $\theta$ вокруг $\bn$
+в подходящем базисе; смена базиса поглощается выбором знака $\theta$).
+
+\emph{Фактор.} Индуцированное отображение $\bar R\colon S^3/\{\pm1\} \to
+\mathrm{SO}(3)$~--- непрерывная биекция. Факторпространство $S^3/\{\pm1\}$
+компактно как образ компакта при непрерывной проекции, $\mathrm{SO}(3)$
+хаусдорфово; непрерывная биекция из компакта в хаусдорфово пространство~---
+гомеоморфизм \cite{marsdenratiu}. Гладкость $\bar R$ и обратного к нему~--- стандартный факт (биективная иммерсия компактного многообразия);
+см.~\cite{marsdenratiu}. По определению $S^3/\{v\sim -v\} = \RP^3$.
+\end{proof}
+
+\subsection{Алгебра \texorpdfstring{$\so$}{so(3)} и метрика Киллинга}
+
+\begin{definition}[шляп-изоморфизм]\label{def:hat}
+Для $u \in \R^3$ положим
+\[
+  \hat u := \begin{pmatrix} 0 & -u_3 & u_2\\ u_3 & 0 & -u_1\\ -u_2 & u_1 & 0 \end{pmatrix}
+  \in \so .
+\]
+Прямая проверка даёт $\hat u\, v = u \times v$ для всех $v \in \R^3$.
+\end{definition}
+
+\begin{lemma}[тождество Якоби для $\times$]\label{lem:jacobi-cross}
+Для всех $x, y, z \in \R^3$
+\[
+  x \times (y \times z) + y \times (z \times x) + z \times (x \times y) = 0 .
+\]
+\end{lemma}
+
+\begin{proof}
+Формула Лагранжа $x\times(y\times z) = y\,(x\cdot z) - z\,(x\cdot y)$
+даёт
+\[
+  \sum_{\text{цикл}} x\times(y\times z)
+  = \bigl[y(x\cdot z) - z(x\cdot y)\bigr]
+  + \bigl[z(y\cdot x) - x(y\cdot z)\bigr]
+  + \bigl[x(z\cdot y) - y(z\cdot x)\bigr] = 0,
+\]
+так как скалярное произведение коммутативно и каждое слагаемое
+$w\,(v\cdot u)$ встречается дважды с противоположными знаками.
+\end{proof}
+
+\begin{lemma}\label{lem:hatjacobi}
+Изоморфизм $u \mapsto \hat u$ удовлетворяет
+$\,[\hat u, \hat v] = \widehat{u \times v}$; следовательно
+$(\R^3, \times)$~--- алгебра Ли, изоморфная $\so$.
+\end{lemma}
+
+\begin{proof}
+Для любого $w \in \R^3$, пользуясь определением~\ref{def:hat} и
+леммой~\ref{lem:jacobi-cross},
+\[
+  [\hat u,\hat v]\,w = \hat u(v\times w) - \hat v(u \times w)
+  = u\times(v\times w) - v\times(u\times w) = (u\times v)\times w,
+\]
+где последний переход~--- перестановка тождества Якоби:
+$u\times(v\times w) - v\times(u\times w)
+= -w\times(u\times v) = (u\times v)\times w$.
+Совпадение линейных отображений на всех $w$ даёт
+$[\hat u,\hat v] = \widehat{u\times v}$.
+\end{proof}
+
+\begin{lemma}[метрика Киллинга]\label{lem:killing}
+Форма
+$\langle u, v\rangle := -\tfrac12\Tr(\hat u\hat v)$
+удовлетворяет
+\[
+  \langle u,v\rangle = u\cdot v \quad\text{и}\quad
+  \langle [u,v], w\rangle = \langle u, [v,w]\rangle
+  \quad\text{(ad-инвариантность).}
+\]
+\end{lemma}
+
+\begin{proof}
+Запишем $\hat u_{ij} = -\varepsilon_{ijk}u_k$. Тогда
+\[
+  \Tr(\hat u\hat v)
+  = \sum_{i,j} \hat u_{ij}\hat v_{ji}
+  = \sum_{i,j,k,\ell} \varepsilon_{ijk}\varepsilon_{j i \ell}\,
+    u_k v_\ell
+  = -\sum_{k,\ell} u_kv_\ell \sum_{i,j}\varepsilon_{ijk}\varepsilon_{ij\ell}
+  = -2\sum_{k}u_kv_k = -2\,u\cdot v,
+\]
+где использовано $\sum_{i,j}\varepsilon_{ijk}\varepsilon_{ij\ell}
+= 2\delta_{k\ell}$. Отсюда $\langle u,v\rangle = u\cdot v > 0$ при
+$u \ne 0$. Ad-инвариантность есть цикличность смешанного произведения:
+\[
+  \langle u\times v, w\rangle = (u\times v)\cdot w
+  = u\cdot(v\times w) = \langle u, v\times w\rangle. \qedhere
+\]
+\end{proof}
+
+Положительная определённость $\langle\cdot,\cdot\rangle$ означает, что
+$\so$~--- алгебра Ли компактного типа; это отражает компактность
+$\mathrm{SO}(3)$ из теоремы~\ref{th:rp3so3}.
+
+\begin{definition}[тензор инерции вихревой трубки]\label{def:inertia}
+Симметричный положительно определённый оператор
+$\bbI = \diag(I_1, I_2, I_3)$, $I_k > 0$, задаёт изоморфизм
+$\so \to \so^{*}$: вектору угловой скорости вихревой деформации
+$\om = \bbI^{-1}\Om$ сопоставляется вектор завихренности
+$\Om \in \so^{*} \cong \R^3$. Отождествление $\so^{*} \cong \so$
+выполняется метрикой Киллинга из леммы~\ref{lem:killing}.
+Случай общего положения~--- попарно различные $I_1, I_2, I_3$.
+\end{definition}
+
+Таким образом, фазовое пространство модели трёхуровневое: компактное
+многообразие состояния $\RP^3 \cong \mathrm{SO}(3)$, коалгебра
+$\so^{*}$ с вектором $\Om$ и инерционный изоморфизм $\om = \bbI^{-1}\Om$.
+Эта структура будет использована в \S\ref{sec:ep} при выводе уравнений
+движения.
